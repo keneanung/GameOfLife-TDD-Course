@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{1F652753-B857-46D8-9F80-E19A208C59DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3B6BB674-2099-497A-9EE3-59D629993BE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLibrary", "GameLibrary\GameLibrary.csproj", "{06533A1E-C605-44BF-BC46-C1EAA144E4C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLibrary.Tests.Unit", "GameLibrary.Tests.Unit\GameLibrary.Tests.Unit.csproj", "{9B43D9C0-9C9D-4AB5-9BCC-B6DAA55B4F92}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{06533A1E-C605-44BF-BC46-C1EAA144E4C0} = {1F652753-B857-46D8-9F80-E19A208C59DE}
+		{9B43D9C0-9C9D-4AB5-9BCC-B6DAA55B4F92} = {3B6BB674-2099-497A-9EE3-59D629993BE3}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06533A1E-C605-44BF-BC46-C1EAA144E4C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06533A1E-C605-44BF-BC46-C1EAA144E4C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06533A1E-C605-44BF-BC46-C1EAA144E4C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06533A1E-C605-44BF-BC46-C1EAA144E4C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B43D9C0-9C9D-4AB5-9BCC-B6DAA55B4F92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B43D9C0-9C9D-4AB5-9BCC-B6DAA55B4F92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B43D9C0-9C9D-4AB5-9BCC-B6DAA55B4F92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B43D9C0-9C9D-4AB5-9BCC-B6DAA55B4F92}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
