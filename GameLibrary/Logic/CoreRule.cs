@@ -21,17 +21,17 @@ namespace GameLibrary.Logic
             return neighbourList.Count(cell => cell.Alive) switch
             {
                 NUMBER_OF_NEIGHBOURS_FOR_ACCEPTABLE_LIFE_CONDITIONS =>
-                    thisCell with
+                    new Cell
                     {
                         Alive = thisCell.Alive
                     },
                 NUMBER_OF_NEIGHBOURS_FOR_THRIVING_LIVE_CONDITIONS =>
-                    thisCell with
+                    new Cell
                     {
                         Alive = true
                     },
                 _ =>
-                    thisCell with
+                    new Cell
                     {
                         Alive = false
                     },

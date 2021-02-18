@@ -1,6 +1,6 @@
 namespace GameLibrary.Domain
 {
-    public record Cell
+    public class Cell
     {
         public bool Alive { get; init; }
     }
