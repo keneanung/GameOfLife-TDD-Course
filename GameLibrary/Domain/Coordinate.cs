@@ -1,20 +1,11 @@
-using System;
-
 namespace GameLibrary.Domain
 {
-    internal class Coordinate
+    internal record Coordinate
     {
-        private const int ORIGIN = 0;
         private readonly int _value;
 
         private Coordinate(int value)
         {
-            if (value < ORIGIN)
-            {
-                throw new ArgumentOutOfRangeException(
-                    nameof(value),
-                    "Coordinates must lay within the first quadrant");
-            }
             _value = value;
         }
 
@@ -28,9 +19,9 @@ namespace GameLibrary.Domain
             return new(value);
         }
 
-        public bool IsWithinBoard(int boardSize)
+        public bool IsInRange(int min, int max)
         {
-            return _value < boardSize;
+            return _value >= min && _value <= max;
         }
 
         public override string ToString()

@@ -6,31 +6,26 @@ namespace GameLibrary.Domain
 {
     public class GameBoard
     {
-        private readonly int _xSize;
-        private readonly int _ySize;
+        private static CellCoordinates Origin { get; } = new(0, 0);
         private readonly Cell[][] _cells;
-
-        private int MaxX => _xSize - 1;
-        private int MaxY => _ySize - 1;
+        private CellCoordinates LowerRightCorner { get; }
 
 
         public GameBoard(Cell[][] cells)
         {
-            _ySize = cells.Length;
-            CheckArraySize(_ySize);
+            int ySize = cells.Length;
+            CheckArraySize(ySize);
 
-            _xSize = cells[0].Length;
-            CheckArraySize(_xSize);
+            int xSize = cells[0].Length;
+            CheckArraySize(xSize);
 
-            if (cells.Any(innerArray => innerArray.Length != _xSize))
-            {
-                throw new JaggedArrayException();
-            }
+            CheckAllInnerArraysForSameSize(cells, xSize);
+
+            LowerRightCorner = new CellCoordinates(xSize - 1, ySize - 1);
 
             _cells = cells;
         }
 
-        // ReSharper disable once ParameterOnlyUsedForPreconditionCheck.Local
         private static void CheckArraySize(int size)
         {
             if (size == 0)
@@ -39,64 +34,63 @@ namespace GameLibrary.Domain
             }
         }
 
-        public Cell GetCellAt(int x, int y)
+        private static void CheckAllInnerArraysForSameSize(Cell[][] cells, int xSize)
         {
-            return GetCellAt((Coordinate) x, (Coordinate) y);
-        }
-
-        private Cell GetCellAt(Coordinate x, Coordinate y)
-        {
-            CheckCoordinates(x, y);
-
-            return _cells[y][x];
-        }
-
-        private void CheckCoordinates(Coordinate x, Coordinate y)
-        {
-            CheckCoordinate(x, _xSize, AxisName.X);
-            CheckCoordinate(y, _ySize, AxisName.Y);
-        }
-
-        private void CheckCoordinate(Coordinate givenValue, int boardSize, AxisName axisName)
-        {
-            if (!givenValue.IsWithinBoard(boardSize))
+            if (cells.Any(innerArray => innerArray.Length != xSize))
             {
-                throw new IndexOutOfRangeException(
-                    $"Expected {axisName} coordinate to be on the board [(0,0) - ({MaxX},{MaxY})], but got {givenValue}");
+                throw new JaggedArrayException();
             }
         }
 
-        private enum AxisName
+        public Cell GetCellAt(int x, int y)
         {
-            X,
-            Y,
+            return GetCellAt(new CellCoordinates(x, y));
+        }
+
+        private Cell GetCellAt(CellCoordinates coordinates)
+        {
+            CheckCoordinates(coordinates);
+
+            return _cells[coordinates.Y][coordinates.X];
+        }
+
+        private void CheckCoordinates(CellCoordinates coordinates)
+        {
+            if (!AreValidCoordinatesForThisBoard(coordinates))
+            {
+                throw new IndexOutOfRangeException(
+                    $"Expected coordinates to be on the board [{Origin} - {LowerRightCorner}], but got {coordinates}");
+            }
+        }
+
+        private bool AreValidCoordinatesForThisBoard(CellCoordinates coordinates)
+        {
+            return coordinates.IsInRectangle(Origin, LowerRightCorner);
         }
 
         public IEnumerable<Cell> GetNeighbours(int x, int y)
         {
-            return GetNeighbours((Coordinate) x, (Coordinate) y);
+            return GetNeighbours(new CellCoordinates(x, y));
         }
 
-        private IEnumerable<Cell> GetNeighbours(Coordinate x, Coordinate y)
+        private IEnumerable<Cell> GetNeighbours(CellCoordinates coordinates)
         {
-            CheckCoordinates(x, y);
+            CheckCoordinates(coordinates);
+            IEnumerable<Cell> neighbours = CollectNeighbours(coordinates);
+            return neighbours;
+        }
+
+        private IEnumerable<Cell> CollectNeighbours(CellCoordinates coordinates)
+        {
             ICollection<Cell> neighbours = new List<Cell>(8);
 
-            for (int xCoordinateOfNeighbour = Math.Max(0, x - 1);
-                xCoordinateOfNeighbour <= Math.Min(x + 1, MaxX);
-                xCoordinateOfNeighbour++)
-            {
-                for (int yCoordinateOfNeighbour = Math.Max(0, y - 1);
-                    yCoordinateOfNeighbour <= Math.Min(y + 1, MaxY);
-                    yCoordinateOfNeighbour++)
-                {
-                    if (xCoordinateOfNeighbour == x && yCoordinateOfNeighbour == y)
-                    {
-                        continue;
-                    }
+            IEnumerable<CellCoordinates> coordinatesOfNeighbourCells =
+                coordinates.GetNeighbours();
 
-                    neighbours.Add(_cells[yCoordinateOfNeighbour][xCoordinateOfNeighbour]);
-                }
+            foreach (CellCoordinates coordinatesOfNeighbourCell in
+                coordinatesOfNeighbourCells.Where(AreValidCoordinatesForThisBoard))
+            {
+                neighbours.Add(_cells[coordinatesOfNeighbourCell.Y][coordinatesOfNeighbourCell.X]);
             }
 
             return neighbours;

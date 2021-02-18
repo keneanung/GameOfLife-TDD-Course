@@ -41,7 +41,7 @@ namespace GameLibrary.Tests.Unit.Domain
         }
 
         [Fact]
-        public void GetCellAt_Should_ThrowIndexOutOfBoundsExceptionWithSensibleMessage_If_XCoordinateIsOUtOfBounds()
+        public void GetCellAt_Should_ThrowIndexOutOfBoundsExceptionWithSensibleMessage_If_XCoordinateIsOutOfBounds()
         {
             var systemUnderTest = new GameBoard(new[] {new[] {new Cell()}});
 
@@ -49,11 +49,11 @@ namespace GameLibrary.Tests.Unit.Domain
 
             throwingAction.Should()
                 .Throw<IndexOutOfRangeException>()
-                .WithMessage("Expected X coordinate to be on the board [(0,0) - (0,0)], but got 1");
+                .WithMessage("Expected coordinates to be on the board [(0,0) - (0,0)], but got (1,0)");
         }
 
         [Fact]
-        public void GetCellAt_Should_ThrowIndexOutOfBoundsExceptionWithSensibleMessage_If_YCoordinateIsOUtOfBounds()
+        public void GetCellAt_Should_ThrowIndexOutOfBoundsExceptionWithSensibleMessage_If_YCoordinateIsOutOfBounds()
         {
             var systemUnderTest = new GameBoard(new[] {new[] {new Cell()}});
 
@@ -61,7 +61,7 @@ namespace GameLibrary.Tests.Unit.Domain
 
             throwingAction.Should()
                 .Throw<IndexOutOfRangeException>()
-                .WithMessage("Expected Y coordinate to be on the board [(0,0) - (0,0)], but got 1");
+                .WithMessage("Expected coordinates to be on the board [(0,0) - (0,0)], but got (0,1)");
         }
 
         [Fact]
@@ -180,7 +180,7 @@ namespace GameLibrary.Tests.Unit.Domain
         }
 
         [Fact]
-        public void GetNeighbours_Should_ThrowIndexOutOfBoundsExceptionWithSensibleMessage_If_XCoordinateIsOUtOfBounds()
+        public void GetNeighbours_Should_ThrowIndexOutOfBoundsExceptionWithSensibleMessage_If_XCoordinateIsOutOfBounds()
         {
             var systemUnderTest = new GameBoard(new[] {new[] {new Cell()}});
 
@@ -188,11 +188,11 @@ namespace GameLibrary.Tests.Unit.Domain
 
             throwingAction.Should()
                 .Throw<IndexOutOfRangeException>()
-                .WithMessage("Expected X coordinate to be on the board [(0,0) - (0,0)], but got 1");
+                .WithMessage("Expected coordinates to be on the board [(0,0) - (0,0)], but got (1,0)");
         }
 
         [Fact]
-        public void GetNeighbours_Should_ThrowIndexOutOfBoundsExceptionWithSensibleMessage_If_YCoordinateIsOUtOfBounds()
+        public void GetNeighbours_Should_ThrowIndexOutOfBoundsExceptionWithSensibleMessage_If_YCoordinateIsOutOfBounds()
         {
             var systemUnderTest = new GameBoard(new[] {new[] {new Cell()}});
 
@@ -200,7 +200,7 @@ namespace GameLibrary.Tests.Unit.Domain
 
             throwingAction.Should()
                 .Throw<IndexOutOfRangeException>()
-                .WithMessage("Expected Y coordinate to be on the board [(0,0) - (0,0)], but got 1");
+                .WithMessage("Expected coordinates to be on the board [(0,0) - (0,0)], but got (0,1)");
         }
     }
 }
