@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FluentAssertions;
 using GameLibrary.Domain;
+using GameLibrary.Logic;
 using Xunit;
 
 namespace GameLibrary.Tests.Unit.Domain
@@ -12,7 +13,7 @@ namespace GameLibrary.Tests.Unit.Domain
         public void GetCellAt_Should_ReturnCellAtGivenCoordinates()
         {
             var cell = new Cell();
-            var systemUnderTest = new GameBoard(new[] {new[] {cell}});
+            var systemUnderTest = new GameBoard(new[] {new[] {cell}}, new CoreRule(), new GameOfLifeFactory(new CoreRule()));
 
             Cell returnedCell = systemUnderTest.GetCellAt(0, 0);
 
@@ -33,7 +34,7 @@ namespace GameLibrary.Tests.Unit.Domain
                 new[] {new Cell(), new Cell(), new Cell()},
                 new[] {new Cell(), cell, new Cell()},
             };
-            var systemUnderTest = new GameBoard(cellArray);
+            var systemUnderTest = new GameBoard(cellArray, new CoreRule(), new GameOfLifeFactory(new CoreRule()));
 
             Cell returnedCell = systemUnderTest.GetCellAt(1, 3);
 
@@ -43,7 +44,7 @@ namespace GameLibrary.Tests.Unit.Domain
         [Fact]
         public void GetCellAt_Should_ThrowIndexOutOfBoundsExceptionWithSensibleMessage_If_XCoordinateIsOutOfBounds()
         {
-            var systemUnderTest = new GameBoard(new[] {new[] {new Cell()}});
+            var systemUnderTest = new GameBoard(new[] {new[] {new Cell()}}, new CoreRule(), new GameOfLifeFactory(new CoreRule()));
 
             Action throwingAction = () => systemUnderTest.GetCellAt(1, 0);
 
@@ -55,7 +56,7 @@ namespace GameLibrary.Tests.Unit.Domain
         [Fact]
         public void GetCellAt_Should_ThrowIndexOutOfBoundsExceptionWithSensibleMessage_If_YCoordinateIsOutOfBounds()
         {
-            var systemUnderTest = new GameBoard(new[] {new[] {new Cell()}});
+            var systemUnderTest = new GameBoard(new[] {new[] {new Cell()}}, new CoreRule(), new GameOfLifeFactory(new CoreRule()));
 
             Action throwingAction = () => systemUnderTest.GetCellAt(0, 1);
 
@@ -73,7 +74,7 @@ namespace GameLibrary.Tests.Unit.Domain
                 new[] {new Cell()},
             };
 
-            Func<GameBoard> throwingFunc = () => new GameBoard(wrongCellArray);
+            Func<GameBoard> throwingFunc = () => new GameBoard(wrongCellArray, new CoreRule(), new GameOfLifeFactory(new CoreRule()));
 
             throwingFunc.Should().Throw<JaggedArrayException>();
         }
@@ -83,7 +84,7 @@ namespace GameLibrary.Tests.Unit.Domain
         {
             Cell[][] wrongCellArray = Array.Empty<Cell[]>();
 
-            Func<GameBoard> throwingFunc = () => new GameBoard(wrongCellArray);
+            Func<GameBoard> throwingFunc = () => new GameBoard(wrongCellArray, new CoreRule(), new GameOfLifeFactory(new CoreRule()));
 
             throwingFunc.Should().Throw<EmptyArrayException>();
         }
@@ -96,7 +97,7 @@ namespace GameLibrary.Tests.Unit.Domain
                 Array.Empty<Cell>(),
             };
 
-            Func<GameBoard> throwingFunc = () => new GameBoard(wrongCellArray);
+            Func<GameBoard> throwingFunc = () => new GameBoard(wrongCellArray, new CoreRule(), new GameOfLifeFactory(new CoreRule()));
 
             throwingFunc.Should().Throw<EmptyArrayException>();
         }
@@ -122,7 +123,7 @@ namespace GameLibrary.Tests.Unit.Domain
                 new[] {neighbours[3], new(), neighbours[4]},
                 new[] {neighbours[5], neighbours[6], neighbours[7]},
             };
-            var systemUnderTest = new GameBoard(cells);
+            var systemUnderTest = new GameBoard(cells, new CoreRule(), new GameOfLifeFactory(new CoreRule()));
 
             IEnumerable<Cell> returnedNeighbours = systemUnderTest.GetNeighbours(1, 1);
 
@@ -146,7 +147,7 @@ namespace GameLibrary.Tests.Unit.Domain
                 new[] {new(), neighbours[0]},
                 new[] {neighbours[1], neighbours[2]},
             };
-            var systemUnderTest = new GameBoard(cells);
+            var systemUnderTest = new GameBoard(cells, new CoreRule(), new GameOfLifeFactory(new CoreRule()));
 
             IEnumerable<Cell> returnedNeighbours = systemUnderTest.GetNeighbours(0, 0);
 
@@ -170,7 +171,7 @@ namespace GameLibrary.Tests.Unit.Domain
                 new[] {neighbours[0], neighbours[1]},
                 new[] {neighbours[2], new()},
             };
-            var systemUnderTest = new GameBoard(cells);
+            var systemUnderTest = new GameBoard(cells, new CoreRule(), new GameOfLifeFactory(new CoreRule()));
 
             IEnumerable<Cell> returnedNeighbours = systemUnderTest.GetNeighbours(1, 1);
 
@@ -182,7 +183,7 @@ namespace GameLibrary.Tests.Unit.Domain
         [Fact]
         public void GetNeighbours_Should_ThrowIndexOutOfBoundsExceptionWithSensibleMessage_If_XCoordinateIsOutOfBounds()
         {
-            var systemUnderTest = new GameBoard(new[] {new[] {new Cell()}});
+            var systemUnderTest = new GameBoard(new[] {new[] {new Cell()}}, new CoreRule(), new GameOfLifeFactory(new CoreRule()));
 
             Action throwingAction = () => systemUnderTest.GetNeighbours(1, 0);
 
@@ -194,13 +195,56 @@ namespace GameLibrary.Tests.Unit.Domain
         [Fact]
         public void GetNeighbours_Should_ThrowIndexOutOfBoundsExceptionWithSensibleMessage_If_YCoordinateIsOutOfBounds()
         {
-            var systemUnderTest = new GameBoard(new[] {new[] {new Cell()}});
+            var systemUnderTest = new GameBoard(new[] {new[] {new Cell()}}, new CoreRule(), new GameOfLifeFactory(new CoreRule()));
 
             Action throwingAction = () => systemUnderTest.GetNeighbours(0, 1);
 
             throwingAction.Should()
                 .Throw<IndexOutOfRangeException>()
                 .WithMessage("Expected coordinates to be on the board [(0,0) - (0,0)], but got (0,1)");
+        }        [Fact]
+        public void NextRound_Should_ReturnDeadCell_If_BoardConsistsOfASingleCell()
+        {
+            GameBoard systemUnderTest = new(new[] {new[] {new Cell {Alive = true}}}, new CoreRule(), new GameOfLifeFactory(new CoreRule()));
+
+            GameBoard returnedBoard = systemUnderTest.NextRound();
+
+            returnedBoard.GetCellAt(0, 0).Should().BeDead();
+        }
+
+        [Fact]
+        public void NextRound_Should_ReturnAliveCell_If_ThreeOfFourCellsAreAlive()
+        {
+            GameBoard systemUnderTest = new(
+                new[]
+                {
+                    new[] {new Cell {Alive = false}, new Cell {Alive = true}},
+                    new[] {new Cell {Alive = true}, new Cell {Alive = true}},
+                }, new CoreRule(),
+                new GameOfLifeFactory(new CoreRule()));
+
+            GameBoard returnedBoard = systemUnderTest.NextRound();
+
+            returnedBoard.GetCellAt(0, 0).Should().BeAlive();
+        }
+
+        [Fact]
+        public void NextRound_Should_ReturnVerticalLine_If_HorizontalLineWasStart()
+        {
+            GameBoard systemUnderTest = new(
+                new[]
+                {
+                    new[] {new Cell {Alive = false}, new Cell {Alive = false}, new Cell {Alive = false}},
+                    new[] {new Cell {Alive = true}, new Cell {Alive = true}, new Cell {Alive = true}},
+                    new[] {new Cell {Alive = false}, new Cell {Alive = false}, new Cell {Alive = false}},
+                }, new CoreRule(),
+                new GameOfLifeFactory(new CoreRule()));
+
+            GameBoard returnedBoard = systemUnderTest.NextRound();
+
+            returnedBoard.GetCellAt(1, 0).Should().BeAlive();
+            returnedBoard.GetCellAt(1, 1).Should().BeAlive();
+            returnedBoard.GetCellAt(1, 2).Should().BeAlive();
         }
     }
 }

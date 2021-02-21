@@ -1,17 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameLibrary.Logic;
 
 namespace GameLibrary.Domain
 {
     public class GameBoard
     {
         private static CellCoordinates Origin { get; } = new(0, 0);
+
         private readonly Cell[][] _cells;
+        private readonly ICoreRule _coreRule;
+        private readonly IGameOfLifeFactory _gameOfLifeFactory;
+
         private CellCoordinates LowerRightCorner { get; }
+        private int SizeX => LowerRightCorner.X + 1;
+        private int SizeY => LowerRightCorner.Y + 1;
 
-
-        public GameBoard(Cell[][] cells)
+        public GameBoard(Cell[][] cells, ICoreRule coreRule, IGameOfLifeFactory gameOfLifeFactory)
         {
             int ySize = cells.Length;
             CheckArraySize(ySize);
@@ -24,6 +30,8 @@ namespace GameLibrary.Domain
             LowerRightCorner = new CellCoordinates(xSize - 1, ySize - 1);
 
             _cells = cells;
+            _coreRule = coreRule;
+            _gameOfLifeFactory = gameOfLifeFactory;
         }
 
         private static void CheckArraySize(int size)
@@ -94,6 +102,39 @@ namespace GameLibrary.Domain
             }
 
             return neighbours;
+        }
+
+        private IEnumerable<CellCoordinates> EnumerateCoordinates()
+        {
+            for (int x = Origin.X; x <= LowerRightCorner.X; x++)
+            {
+                for (int y = Origin.Y; y <= LowerRightCorner.Y; y++)
+                {
+                    yield return new CellCoordinates(x, y);
+                }
+            }
+        }
+
+        public GameBoard NextRound()
+        {
+            BoardBuilder builder = _gameOfLifeFactory.BoardBuilder;
+            builder.SetSizeX(SizeX)
+                .SetSizeY(SizeY);
+
+            foreach (CellCoordinates coordinates in EnumerateCoordinates())
+            {
+                Cell nextCellState = NextCellState(coordinates);
+                builder.SetCell(coordinates.X, coordinates.Y, nextCellState);
+            }
+
+            return builder.GetBoard();
+        }
+
+        private Cell NextCellState(CellCoordinates coordinates)
+        {
+            Cell thisCell = GetCellAt(coordinates);
+            IEnumerable<Cell> neighbours = GetNeighbours(coordinates);
+            return _coreRule.NextState(thisCell, neighbours);
         }
     }
 }

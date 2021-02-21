@@ -4,7 +4,7 @@ using GameLibrary.Domain;
 
 namespace GameLibrary.Logic
 {
-    public class CoreRule
+    public class CoreRule : ICoreRule
     {
         private const int MAXIMUM_NUMBER_OF_NEIGHBOURS = 8;
         private const int NUMBER_OF_NEIGHBOURS_FOR_ACCEPTABLE_LIFE_CONDITIONS = 2;
