@@ -1,6 +1,6 @@
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
-using GameLibrary.Domain;
+using GameOfLife.Lib.Domain;
 
 // ReSharper disable once CheckNamespace
 namespace FluentAssertions

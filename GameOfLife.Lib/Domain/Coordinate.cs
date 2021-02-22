@@ -1,4 +1,4 @@
-namespace GameLibrary.Domain
+namespace GameOfLife.Lib.Domain
 {
     internal record Coordinate
     {

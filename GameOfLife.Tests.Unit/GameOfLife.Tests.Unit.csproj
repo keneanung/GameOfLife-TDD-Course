@@ -23,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\GameLibrary\GameLibrary.csproj" />
+      <ProjectReference Include="..\GameOfLife.Lib\GameOfLife.Lib.csproj" />
     </ItemGroup>
 
 </Project>

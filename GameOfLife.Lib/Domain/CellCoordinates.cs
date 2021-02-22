@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GameLibrary.Domain
+namespace GameOfLife.Lib.Domain
 {
     internal record CellCoordinates
     {

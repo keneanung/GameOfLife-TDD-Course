@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using FluentAssertions;
-using GameLibrary.Domain;
-using GameLibrary.Logic;
+using GameOfLife.Lib.Domain;
+using GameOfLife.Lib.Logic;
 using Xunit;
 
-namespace GameLibrary.Tests.Unit.Domain
+namespace GameOfLife.Tests.Unit.Domain
 {
     public class GameBoardTests
     {

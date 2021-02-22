@@ -1,6 +1,6 @@
-using GameLibrary.Logic;
+using GameOfLife.Lib.Logic;
 
-namespace GameLibrary.Domain
+namespace GameOfLife.Lib.Domain
 {
     public interface IGameOfLifeFactory
     {

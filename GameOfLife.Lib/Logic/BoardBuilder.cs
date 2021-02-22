@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using GameLibrary.Domain;
+using GameOfLife.Lib.Domain;
 
-namespace GameLibrary.Logic
+namespace GameOfLife.Lib.Logic
 {
     public class BoardBuilder
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace GameLibrary.Domain
+namespace GameOfLife.Lib.Domain
 {
     public class JaggedArrayException : Exception
     {

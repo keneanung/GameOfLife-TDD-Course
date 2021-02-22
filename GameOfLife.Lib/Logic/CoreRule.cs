@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using GameLibrary.Domain;
+using GameOfLife.Lib.Domain;
 
-namespace GameLibrary.Logic
+namespace GameOfLife.Lib.Logic
 {
     public class CoreRule : ICoreRule
     {

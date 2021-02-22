@@ -4,9 +4,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{1F6527
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3B6BB674-2099-497A-9EE3-59D629993BE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLibrary", "GameLibrary\GameLibrary.csproj", "{06533A1E-C605-44BF-BC46-C1EAA144E4C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLife.Lib", "GameOfLife.Lib\GameOfLife.Lib.csproj", "{06533A1E-C605-44BF-BC46-C1EAA144E4C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLibrary.Tests.Unit", "GameLibrary.Tests.Unit\GameLibrary.Tests.Unit.csproj", "{9B43D9C0-9C9D-4AB5-9BCC-B6DAA55B4F92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLife.Tests.Unit", "GameOfLife.Tests.Unit\GameOfLife.Tests.Unit.csproj", "{9B43D9C0-9C9D-4AB5-9BCC-B6DAA55B4F92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

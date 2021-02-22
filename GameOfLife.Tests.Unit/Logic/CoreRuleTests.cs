@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using FluentAssertions;
-using GameLibrary.Domain;
-using GameLibrary.Logic;
+using GameOfLife.Lib.Domain;
+using GameOfLife.Lib.Logic;
 using Xunit;
 
-namespace GameLibrary.Tests.Unit.Logic
+namespace GameOfLife.Tests.Unit.Logic
 {
     public class CoreRuleTests
     {
@@ -310,7 +310,7 @@ namespace GameLibrary.Tests.Unit.Logic
         }
 
         [Fact]
-        public void NexState_Should_ReturnDeadCell_If_DeadCellHasSevenliveNeighbours()
+        public void NexState_Should_ReturnDeadCell_If_DeadCellHasSevenLiveNeighbours()
         {
             var systemUnderTest = new CoreRule();
             var cell = new Cell
