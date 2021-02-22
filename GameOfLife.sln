@@ -6,7 +6,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3B6BB674
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLife.Lib", "GameOfLife.Lib\GameOfLife.Lib.csproj", "{06533A1E-C605-44BF-BC46-C1EAA144E4C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLife.Tests.Unit", "GameOfLife.Tests.Unit\GameOfLife.Tests.Unit.csproj", "{9B43D9C0-9C9D-4AB5-9BCC-B6DAA55B4F92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLife.Lib.Tests.Unit", "GameOfLife.Lib.Tests.Unit\GameOfLife.Lib.Tests.Unit.csproj", "{9B43D9C0-9C9D-4AB5-9BCC-B6DAA55B4F92}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLife.DependencyInjection.Microsoft", "GameOfLife.DependencyInjection.Microsoft\GameOfLife.DependencyInjection.Microsoft.csproj", "{EC482D9C-0D5A-49F4-9351-D407E09F3B67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLife.Console", "GameOfLife.Console\GameOfLife.Console.csproj", "{96D80756-07D8-4B00-B549-9DD8FC94B372}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameOfLife.Console.Tests.Unit", "GameOfLife.Console.Tests.Unit\GameOfLife.Console.Tests.Unit.csproj", "{039A072C-58AF-4C49-B87D-ADD54580DD12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,6 +22,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{06533A1E-C605-44BF-BC46-C1EAA144E4C0} = {1F652753-B857-46D8-9F80-E19A208C59DE}
 		{9B43D9C0-9C9D-4AB5-9BCC-B6DAA55B4F92} = {3B6BB674-2099-497A-9EE3-59D629993BE3}
+		{EC482D9C-0D5A-49F4-9351-D407E09F3B67} = {1F652753-B857-46D8-9F80-E19A208C59DE}
+		{96D80756-07D8-4B00-B549-9DD8FC94B372} = {1F652753-B857-46D8-9F80-E19A208C59DE}
+		{039A072C-58AF-4C49-B87D-ADD54580DD12} = {3B6BB674-2099-497A-9EE3-59D629993BE3}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{06533A1E-C605-44BF-BC46-C1EAA144E4C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -26,5 +35,17 @@ Global
 		{9B43D9C0-9C9D-4AB5-9BCC-B6DAA55B4F92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B43D9C0-9C9D-4AB5-9BCC-B6DAA55B4F92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B43D9C0-9C9D-4AB5-9BCC-B6DAA55B4F92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC482D9C-0D5A-49F4-9351-D407E09F3B67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC482D9C-0D5A-49F4-9351-D407E09F3B67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC482D9C-0D5A-49F4-9351-D407E09F3B67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC482D9C-0D5A-49F4-9351-D407E09F3B67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96D80756-07D8-4B00-B549-9DD8FC94B372}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96D80756-07D8-4B00-B549-9DD8FC94B372}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96D80756-07D8-4B00-B549-9DD8FC94B372}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96D80756-07D8-4B00-B549-9DD8FC94B372}.Release|Any CPU.Build.0 = Release|Any CPU
+		{039A072C-58AF-4C49-B87D-ADD54580DD12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{039A072C-58AF-4C49-B87D-ADD54580DD12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{039A072C-58AF-4C49-B87D-ADD54580DD12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{039A072C-58AF-4C49-B87D-ADD54580DD12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

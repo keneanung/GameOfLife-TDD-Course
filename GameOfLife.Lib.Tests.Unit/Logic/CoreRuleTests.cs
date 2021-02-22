@@ -5,7 +5,7 @@ using GameOfLife.Lib.Domain;
 using GameOfLife.Lib.Logic;
 using Xunit;
 
-namespace GameOfLife.Tests.Unit.Logic
+namespace GameOfLife.Lib.Tests.Unit.Logic
 {
     public class CoreRuleTests
     {
