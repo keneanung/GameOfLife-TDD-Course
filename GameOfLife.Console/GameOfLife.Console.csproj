@@ -3,9 +3,11 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\GameOfLife.DependencyInjection.Microsoft\GameOfLife.DependencyInjection.Microsoft.csproj" />
       <ProjectReference Include="..\GameOfLife.Lib\GameOfLife.Lib.csproj" />
     </ItemGroup>
 

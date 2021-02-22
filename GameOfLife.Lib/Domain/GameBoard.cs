@@ -14,8 +14,8 @@ namespace GameOfLife.Lib.Domain
         private readonly IGameOfLifeFactory _gameOfLifeFactory;
 
         private CellCoordinates LowerRightCorner { get; }
-        private int SizeX => LowerRightCorner.X + 1;
-        private int SizeY => LowerRightCorner.Y + 1;
+        public int SizeX => LowerRightCorner.X + 1;
+        public int SizeY => LowerRightCorner.Y + 1;
 
         public GameBoard(Cell[][] cells, ICoreRule coreRule, IGameOfLifeFactory gameOfLifeFactory)
         {

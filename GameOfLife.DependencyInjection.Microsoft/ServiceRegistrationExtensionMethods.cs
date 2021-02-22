@@ -6,9 +6,9 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceRegistrationExtensionMethods
     {
-        public static void UseGameOfLife(this IServiceCollection serviceCollection)
+        public static IServiceCollection UseGameOfLife(this IServiceCollection serviceCollection)
         {
-            serviceCollection.AddSingleton<ICoreRule, CoreRule>()
+            return serviceCollection.AddSingleton<ICoreRule, CoreRule>()
                 .AddSingleton<IGameOfLifeFactory, GameOfLifeFactory>();
         }
     }
